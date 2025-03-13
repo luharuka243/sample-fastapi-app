@@ -1,0 +1,27 @@
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
+virtual_env = ".venv"
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+ignore_missing_imports = false
+disallow_untyped_calls = true  # Disallow calls to functions without type annotations
+disallow_untyped_defs = true    # Disallow function definitions without type annotations
+disallow_incomplete_defs = true  # Disallow functions with incomplete type annotations
+warn_unused_ignores = true       # Warn about unused 'ignore' comments
+pretty = true
+
+[tool.flake8]
+max-line-length = 79
+show-source = true  # Display the source code causing the issue
+count = true  # Display count of errors
+ignore = ["E501","E203"]
+exclude = [".venv",".git",".mypy_cache",".vscode"]

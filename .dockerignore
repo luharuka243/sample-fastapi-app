@@ -1,0 +1,58 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+.mypy_cache/
+
+
+# Testing
+*.log
+*.pot
+*.pyc
+*.pyo
+test/
+tests/
+*.cover
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Docker specific files
+Dockerfile*
+*.dockerignore
+
+# Miscellaneous
+*.DS_Store
+*.local
+*.xml
+*.md
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Hidden files
+.*
+
+.git/
