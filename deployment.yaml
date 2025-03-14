@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-fastapi-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-fastapi-app
+  template:
+    metadata:
+      labels:
+        app: sample-fastapi-app
+    spec:
+      containers:
+      - name: sample-fastapi-app
+        image: sample-fastapi-app:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10

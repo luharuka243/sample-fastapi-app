@@ -1,14 +1,45 @@
 import random
 import time
+from typing import Any, Callable
 
 import uvicorn
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse, Response
+from prometheus_client import (
+    CONTENT_TYPE_LATEST,
+    Counter,
+    generate_latest,
+    make_asgi_app,
+)
 
 app = FastAPI(
     title="Document Topic Matcher API",
     description="API for extracting topics from text and multimedia files and determining if they match",
 )
+
+# Create a metric to track requests
+REQUEST_COUNT = Counter(
+    "http_requests_total",
+    "Total HTTP Requests",
+    ["method", "endpoint", "status_code"],
+)
+
+# Add prometheus asgi middleware
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
+
+
+@app.middleware("http")
+async def monitor_requests(
+    request: Request, call_next: Callable[[Any], Any]
+) -> Any:
+    response = await call_next(request)
+    REQUEST_COUNT.labels(
+        method=request.method,
+        endpoint=request.url.path,
+        status_code=response.status_code,
+    ).inc()
+    return response
 
 
 TOPICS = {
