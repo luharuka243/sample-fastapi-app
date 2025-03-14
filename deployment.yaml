@@ -15,6 +15,7 @@ spec:
       containers:
       - name: sample-fastapi-app
         image: sample-fastapi-app:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
         resources:
