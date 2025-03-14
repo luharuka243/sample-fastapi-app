@@ -86,6 +86,11 @@ TOPICS = {
 }
 
 
+@app.get("/")
+def read_root() -> JSONResponse:
+    return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
+
+
 @app.get("/health")
 def health() -> JSONResponse:
     """Check if the API is running"""
