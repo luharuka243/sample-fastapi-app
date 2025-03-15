@@ -1,0 +1,17 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: sample-fastapi-app-scaler
+spec:
+  scaleTargetRef:
+    name: sample-fastapi-app  # Name of the Deployment
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: "http://prometheus-server.monitoring.svc.cluster.local"
+        metricName: "http_requests_total"
+        query: |
+          rate(http_requests_total[1m])
+        threshold: "5"
